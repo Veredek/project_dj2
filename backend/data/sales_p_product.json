@@ -1,0 +1,11 @@
+{
+ "tipo": "barras",
+ "titulo": "Vendas por produto",
+ "eixoX": ["Produto A", "Produto B", "Produto C", "Produto D"],
+ "series": [
+   {
+     "nome": "Vendas",
+     "dados": [300, 220, 180, 260]
+   }
+ ]
+}

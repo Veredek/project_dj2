@@ -1,0 +1,13 @@
+{
+ "tipo": "linha_com_pontos",
+ "titulo": "Usuários ativos",
+ "eixoX": ["Seg", "Ter", "Qua", "Qui", "Sex"],
+ "series": [
+   {
+     "nome": "Usuários",
+     "dados": [50, 80, 65, 100, 120],
+     "mostrarLinha": true,
+     "mostrarPontos": true
+   }
+ ]
+}

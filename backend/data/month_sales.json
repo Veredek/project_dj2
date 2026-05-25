@@ -1,0 +1,11 @@
+{
+ "tipo": "linha",
+ "titulo": "Vendas por mês",
+ "eixoX": ["Jan", "Fev", "Mar", "Abr", "Mai"],
+ "series": [
+   {
+     "nome": "Vendas",
+     "dados": [120, 180, 150, 220, 300]
+   }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "tipo": "pizza",
+ "titulo": "Participação por categoria",
+ "dados": [
+   {
+     "nome": "Produto A",
+     "valor": 40
+   },
+   {
+     "nome": "Produto B",
+     "valor": 25
+   },
+   {
+     "nome": "Produto C",
+     "valor": 20
+   },
+   {
+     "nome": "Produto D",
+     "valor": 15
+   }
+ ]
+}

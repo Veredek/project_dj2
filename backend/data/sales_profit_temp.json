@@ -1,0 +1,34 @@
+{
+ "tipo": "linha_3_eixos",
+ "titulo": "Vendas, lucro e temperatura",
+ "eixoX": ["Jan", "Fev", "Mar", "Abr", "Mai"],
+ "eixosY": [
+   {
+     "id": "y1",
+     "nome": "Vendas",
+     "posicao": "esquerda"
+   },
+   {
+     "id": "y2",
+     "nome": "Lucro",
+     "posicao": "direita"
+   }
+ ],
+ "series": [
+   {
+     "nome": "Vendas",
+     "eixoY": "y1",
+     "dados": [120, 180, 150, 220, 300]
+   },
+   {
+     "nome": "Lucro",
+     "eixoY": "y2",
+     "dados": [30, 45, 40, 70, 90]
+   },
+   {
+     "nome": "Temperatura",
+     "eixoY": "y2",
+     "dados": [25, 27, 26, 24, 23]
+   }
+ ]
+}
