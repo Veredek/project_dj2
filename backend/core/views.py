@@ -3,7 +3,7 @@ from pathlib import Path
 from django.http import JsonResponse
 
 
-BACKEND_DIR = Path(__file__).resolve().parent
+BACKEND_DIR = Path(__file__).resolve().parent.parent
 
 
 def pizza_json(request):
