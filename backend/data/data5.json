@@ -6,12 +6,12 @@
    {
      "id": "y1",
      "nome": "Vendas",
-     "posicao": "esquerda"
+     "posicao": "left"
    },
    {
      "id": "y2",
      "nome": "Lucro",
-     "posicao": "direita"
+     "posicao": "right"
    }
  ],
  "series": [
