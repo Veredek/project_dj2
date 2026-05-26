@@ -1,0 +1,72 @@
+{
+  "tipo": "linha_com_pontos",
+  "titulo": "Curvas Pressão x Temperatura",
+  "eixos": {
+    "x": "Temperatura",
+    "y": "Pressão"
+  },
+  "areas": [
+    ["linha_5", "linha_6"]
+  ],
+  "linhas": [
+    {
+      "id": "linha_1",
+      "nome": "Curva 1",
+      "pontos": [
+        { "x": 10, "y": 1.2 },
+        { "x": 20, "y": 1.8 },
+        { "x": 35, "y": 2.5 },
+        { "x": 50, "y": 3.1 }
+      ]
+    },
+    {
+      "id": "linha_2",
+      "nome": "Curva 2",
+      "pontos": [
+        { "x": 5, "y": 0.9 },
+        { "x": 15, "y": 1.4 },
+        { "x": 30, "y": 2.2 },
+        { "x": 45, "y": 2.9 }
+      ]
+    },
+    {
+      "id": "linha_3",
+      "nome": "Curva 3",
+      "pontos": [
+        { "x": 12, "y": 1.0 },
+        { "x": 22, "y": 1.7 },
+        { "x": 40, "y": 2.8 }
+      ]
+    },
+    {
+      "id": "linha_4",
+      "nome": "Curva 4",
+      "pontos": [
+        { "x": 8, "y": 1.1 },
+        { "x": 18, "y": 1.6 },
+        { "x": 28, "y": 2.0 },
+        { "x": 38, "y": 2.7 }
+      ]
+    },
+    {
+      "id": "linha_5",
+      "nome": "Curva 5",
+      "pontos": [
+        { "x": 0, "y": 0.7 },
+        { "x": 10, "y": 1.1 },
+        { "x": 25, "y": 1.9 },
+        { "x": 60, "y": 3.5 }
+      ]
+    },
+    {
+      "id": "linha_6",
+      "nome": "Curva 6",
+      "pontos": [
+        { "x": 3, "y": 0.8 },
+        { "x": 14, "y": 1.5 },
+        { "x": 27, "y": 2.1 },
+        { "x": 42, "y": 3.0 }
+      ]
+    }
+  ]
+}
