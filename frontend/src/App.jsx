@@ -27,6 +27,7 @@ function App() {
       'data4',
       'data5',
       'data6',
+      'data7',
     ]
 
     Promise.all(

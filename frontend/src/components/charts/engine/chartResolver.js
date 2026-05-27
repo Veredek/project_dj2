@@ -2,9 +2,10 @@ import { buildBar } from './optionBuilders/bar'
 import { buildLine } from './optionBuilders/line'
 import { buildPie } from './optionBuilders/pie'
 import { buildMultiAxisLine } from './optionBuilders/multiAxisLine'
+import { buildScatterWCurves } from './optionBuilders/scatter_w_curves'
 
 export function resolveChart(data) {
-    switch (data.tipo) {
+    switch (data.tipo ?? data.type) {
         case 'barras':
             return buildBar(data)
 
@@ -20,7 +21,10 @@ export function resolveChart(data) {
         case 'linha_com_pontos':
             return buildLine(data, { points: true })
 
+        case 'scatter_w_curves':
+            return buildScatterWCurves(data)
+
         default:
-            throw new Error(`Tipo desconhecido: ${data.tipo}`)
+            throw new Error(`Tipo desconhecido: ${data.tipo ?? data.type}`)
     }
 }
