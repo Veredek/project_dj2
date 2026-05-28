@@ -1,6 +1,8 @@
+import { getAxisRange } from '../../helpers/axisRangeResolver'
+
 function interpolateY(pontos, x) {
     const ordered = [...(pontos ?? [])]
-                    .sort((a, b) => a.x - b.x)
+        .sort((a, b) => a.x - b.x)
 
     if (!ordered.length) {
         return null
@@ -8,10 +10,9 @@ function interpolateY(pontos, x) {
 
     // fora do domínio
     if (x < ordered[0].x ||
-        x >  ordered[ordered.length - 1].x)
-        {
-            return null
-        }
+        x > ordered[ordered.length - 1].x) {
+        return null
+    }
 
     for (
         let i = 0;
@@ -22,12 +23,11 @@ function interpolateY(pontos, x) {
         const p2 = ordered[i + 1]
 
         if (x >= p1.x &&
-            x <= p2.x)
-            {
-                const ratio = (x - p1.x) / (p2.x - p1.x)
+            x <= p2.x) {
+            const ratio = (x - p1.x) / (p2.x - p1.x)
 
-                return (p1.y + ratio * (p2.y - p1.y))
-            }
+            return (p1.y + ratio * (p2.y - p1.y))
+        }
     }
 
     return null
@@ -38,6 +38,12 @@ export function buildLine(data, options = {}) {
 
     const eixoX = data?.eixoX
     const eixos = data?.eixos
+
+    const xUnit = options?.xUnit
+    const yUnit = options?.yUnit
+
+    const convertX = options?.xMeta?.units?.[xUnit] ?? ((v) => v)
+    const convertY = options?.yMeta?.units?.[yUnit] ?? ((v) => v)
 
     const seriesData = data?.series
     const linhas = data?.linhas
@@ -62,17 +68,26 @@ export function buildLine(data, options = {}) {
     // eixoX + series
     // -------------------------
     if (hasSeries) {
+        const yValues = seriesData.flatMap((s) => (s.dados ?? []).map(convertY))
+
         tooltip = {
             trigger: 'axis',
         }
 
         xAxis = {
             type: 'category',
-            data: eixoX ?? [],
+            data: eixoX?.map(convertX) ?? [],
         }
 
         yAxis = {
             type: 'value',
+
+            ...getAxisRange(yValues),
+
+            name:
+                yUnit
+                    ? `${eixos?.y} (${yUnit})`
+                    : eixos?.y,
         }
 
         series = seriesData.map((s) => ({
@@ -80,7 +95,7 @@ export function buildLine(data, options = {}) {
 
             type: 'line',
 
-            data: s.dados ?? [],
+            data: (s.dados ?? []).map(convertY),
 
             showSymbol:
                 options.points ??
@@ -101,19 +116,33 @@ export function buildLine(data, options = {}) {
     // linhas com pontos XY
     // -------------------------
     if (hasLinhas) {
+        const allPoints = linhas.flatMap((linha) => linha.pontos ?? [])
+        const xValues = allPoints.map((p) => convertX(p.x))
+        const yValues = allPoints.map((p) => convertY(p.y))
+        const xRange = getAxisRange(xValues)
+        const yRange = getAxisRange(yValues)
+
         tooltip = {
-            trigger: 'item',
+            trigger: 'axis',
         }
 
         xAxis = {
             type: 'value',
-            name: eixos?.x,
+            ...xRange,
+            name:
+                xUnit
+                    ? `${eixos?.x} (${xUnit})`
+                    : eixos?.x,
             nameLocation: 'middle'
         }
 
         yAxis = {
             type: 'value',
-            name: eixos?.y,
+            ...yRange,
+            name:
+                yUnit
+                    ? `${eixos?.y} (${yUnit})`
+                    : eixos?.y,
         }
 
         const linhasById =
@@ -135,8 +164,8 @@ export function buildLine(data, options = {}) {
                 data:
                     linha.pontos?.map(
                         (p) => [
-                            p.x,
-                            p.y,
+                            convertX(p.x),
+                            convertY(p.y),
                         ]
                     ) ?? [],
             }))
@@ -156,9 +185,9 @@ export function buildLine(data, options = {}) {
                         return
 
                     const xs = [...linhaA.pontos.map((p) => p.x),
-                                ...linhaB.pontos.map((p) => p.x),]
-                                .sort((a,b) => a - b)
-                                .filter((x, index, arr) => arr.indexOf(x) === index) // remove x duplicado
+                    ...linhaB.pontos.map((p) => p.x),]
+                        .sort((a, b) => a - b)
+                        .filter((x, index, arr) => arr.indexOf(x) === index) // remove x duplicado
 
                     const validPoints = []
 
@@ -169,9 +198,9 @@ export function buildLine(data, options = {}) {
 
                         if (yA !== null &&
                             yB !== null) {
-                                validPoints.push({x, yA, yB})
-                           }
-                        })
+                            validPoints.push({ x, yA, yB })
+                        }
+                    })
 
                     if (validPoints.length < 2)
                         return
@@ -179,11 +208,11 @@ export function buildLine(data, options = {}) {
                     const polygon = []
 
                     // ida pela curva A
-                    validPoints.forEach((p) => {polygon.push([p.x, p.yA,])})
+                    validPoints.forEach((p) => { polygon.push([convertX(p.x), convertY(p.yA),]) })
 
-                    // volta pela curva B
-                    ;[...validPoints,].reverse()
-                    .forEach((p) => {polygon.push([p.x, p.yB,])})
+                        // volta pela curva B
+                        ;[...validPoints,].reverse()
+                            .forEach((p) => { polygon.push([convertX(p.x), convertY(p.yB),]) })
 
 
                     areaSeries.push(
@@ -191,8 +220,8 @@ export function buildLine(data, options = {}) {
                             name: '',
                             type: 'line',
                             symbol: 'none',
-                            lineStyle: {opacity:0,},
-                            areaStyle: {opacity: 0.25,},
+                            lineStyle: { opacity: 0, },
+                            areaStyle: { opacity: 0.25, },
                             data: polygon,
                         }
                     )

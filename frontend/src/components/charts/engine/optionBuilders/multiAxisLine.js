@@ -15,6 +15,7 @@ export function buildMultiAxisLine(data) {
             name: e.nome,
             type: 'value',
             position: e.posicao,
+            interval: 25
         })),
 
         series: data.series.map(s => ({

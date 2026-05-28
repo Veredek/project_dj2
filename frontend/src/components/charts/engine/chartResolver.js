@@ -4,7 +4,10 @@ import { buildPie } from './optionBuilders/pie'
 import { buildMultiAxisLine } from './optionBuilders/multiAxisLine'
 import { buildScatterWCurves } from './optionBuilders/scatter_w_curves'
 
-export function resolveChart(data) {
+export function resolveChart(
+    data,
+    { xUnit, yUnit, xMeta, yMeta } = {}
+) {
     switch (data.tipo ?? data.type) {
         case 'barras':
             return buildBar(data)
@@ -19,7 +22,7 @@ export function resolveChart(data) {
             return buildMultiAxisLine(data)
 
         case 'linha_com_pontos':
-            return buildLine(data, { points: true })
+            return buildLine(data, { xUnit, yUnit, xMeta, yMeta, points: true })
 
         case 'scatter_w_curves':
             return buildScatterWCurves(data)
